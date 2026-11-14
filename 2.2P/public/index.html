@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIT725 Task 2.2P - Express Calculator</title>
+<style>
+  :root {
+    --navy: #16294d;
+    --accent: #3b6fd6;
+    --accent-dark: #2a53a8;
+    --bg: #eef2f9;
+    --card: #ffffff;
+    --text: #1f2a44;
+    --muted: #6b7686;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg) 0%, #dbe4f5 100%);
+    color: var(--text);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .card {
+    background: var(--card);
+    width: 100%;
+    max-width: 440px;
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(22, 41, 77, 0.12);
+    padding: 32px 32px 28px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--navy);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin: 0 0 6px;
+    color: var(--navy);
+  }
+
+  p.subtitle {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0 0 24px;
+    line-height: 1.5;
+  }
+
+  p.subtitle code {
+    background: #f1f4fa;
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--accent-dark);
+    font-family: Consolas, monospace;
+  }
+
+  .row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .field {
+    flex: 1;
+    margin-top: 14px;
+  }
+
+  label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #dde3ef;
+    border-radius: 10px;
+    font-size: 15px;
+    background: #fafbfd;
+    color: var(--text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59, 111, 214, 0.15);
+    background: #fff;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  button {
+    flex: 1;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+
+  button:active { transform: translateY(1px); }
+
+  #getBtn {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(59, 111, 214, 0.3);
+  }
+  #getBtn:hover { background: var(--accent-dark); }
+
+  #postBtn {
+    background: #eef2fb;
+    color: var(--accent-dark);
+    border: 1.5px solid #cfdbf5;
+  }
+  #postBtn:hover { background: #e2eaf9; }
+
+  #result {
+    margin-top: 22px;
+    padding: 16px;
+    background: var(--navy);
+    color: #cfe0ff;
+    border-radius: 10px;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    min-height: 20px;
+    word-break: break-word;
+  }
+
+  #result.empty {
+    color: #8ea0c7;
+    font-style: italic;
+  }
+
+  .result-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #8ea0c7;
+    margin-bottom: 6px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">SIT725 · TASK 2.2P</span>
+    <h1>Express Calculator</h1>
+    <p class="subtitle">
+      Static page served from <code>/public</code>, calling the
+      Express REST API (<code>GET /add</code>, <code>POST /calculate</code>, etc.)
+      on the same server.
+    </p>
+
+    <div class="row">
+      <div class="field">
+        <label for="a">Number A</label>
+        <input type="number" id="a" value="5" />
+      </div>
+      <div class="field">
+        <label for="b">Number B</label>
+        <input type="number" id="b" value="3" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="op">Operation</label>
+      <select id="op">
+        <option value="add">Add</option>
+        <option value="subtract">Subtract</option>
+        <option value="multiply">Multiply</option>
+        <option value="divide">Divide</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button id="getBtn">Call via GET</button>
+      <button id="postBtn">Call via POST</button>
+    </div>
+
+    <div id="result" class="empty">Result will appear here...</div>
+  </div>
+
+  <script>
+    const resultBox = document.getElementById('result');
+
+    function showResult(label, data) {
+      resultBox.classList.remove('empty');
+      resultBox.innerHTML =
+        '<span class="result-label">' + label + '</span>' +
+        JSON.stringify(data, null, 2);
+    }
+
+    document.getElementById('getBtn').addEventListener('click', async () => {
+      const a = document.getElementById('a').value;
+      const b = document.getElementById('b').value;
+      const op = document.getElementById('op').value;
+      const res = await fetch(`/${op}?a=${a}&b=${b}`);
+      const data = await res.json();
+      showResult('GET /' + op, data);
+    });
+
+    document.getElementById('postBtn').addEventListener('click', async () => {
+      const a = document.getElementById('a').value;
+      const b = document.getElementById('b').value;
+      const op = document.getElementById('op').value;
+      const res = await fetch('/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ a, b, op }),
+      });
+      const data = await res.json();
+      showResult('POST /calculate', data);
+    });
+  </script>
+</body>
+</html>
