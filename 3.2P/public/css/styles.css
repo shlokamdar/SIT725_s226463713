@@ -1,0 +1,40 @@
+.navbar-size {
+  width: 95%;
+  margin: 0 auto;
+}
+nav .brand-logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.main-body {
+  background-color: #FFF8EE;
+  color: #4E342E;
+  min-height: calc(100vh - 64px);
+  padding-bottom: 40px;
+}
+
+.click-me-button {
+  background-color: #EF6C00;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.card-reveal {
+  color: black;
+}
+
+.card-reveal .card-title,
+.card-reveal p {
+  color: black;
+}
+
+#card-section .card {
+  margin-top: 20px;
+}
+
+#card-section img.activator {
+  height: 220px;
+  object-fit: cover;
+}

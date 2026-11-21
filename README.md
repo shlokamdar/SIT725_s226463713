@@ -4,7 +4,7 @@
 **Unit:** SIT725 — Applied Software Engineering, Deakin University
 
 This repository holds all coding tasks for SIT725. Each task lives in its
-own folder, named after its task code (e.g. `1.1P`, `2.2P`).
+own folder, named after its task code (e.g. `1.1P`, `2.2P`, `3.2P`).
 
 ## Repository structure
 
@@ -23,6 +23,21 @@ own folder, named after its task code (e.g. `1.1P`, `2.2P`).
 │   ├── server.js
 │   ├── package.json
 │   └── README.md
+│
+├── 3.2P/               # Task 3.2P — Getting Graphical (Recipe Box)
+│   ├── public/
+│   │   ├── css/
+│   │   │   └── styles.css
+│   │   ├── images/
+│   │   │   ├── cupcake.png
+│   │   │   ├── fries.png
+│   │   │   ├── lavacake.png
+│   │   │   └── pizza.png
+│   │   ├── js/
+│   │   │   └── scripts.js
+│   │   └── index.html
+│   ├── server.js
+│   └── package.json
 │
 ├── .gitignore
 └── README.md           # (this file)
@@ -60,6 +75,30 @@ npm start
 ```
 Then open `http://localhost:3000/`. See `2.2P/README.md` for full endpoint
 details 
+
+## Task 3.2P — Getting Graphical (Recipe Box)
+
+Same Express + Materialize architecture as the practical (static page
+served from `public/`, GET REST endpoint consumed on the client), with
+the domain changed from the kitten/cards demo to a small recipe catalogue.
+
+- `server.js` — serves `public/` statically, plus:
+  - `GET /api/recipes` — returns the full recipe list as JSON
+  - `GET /api/recipes/:id` — returns a single recipe by id
+- `public/index.html` — Materialize navbar, "Suggest a Recipe" modal, and
+  a card grid populated dynamically.
+- `public/js/scripts.js` — fetches `GET /api/recipes` on page load and
+  renders a Materialize card per recipe (no hardcoded card data on the
+  client, unlike the practical).
+
+**To run:**
+```bash
+cd 3.2P
+npm install
+npm start
+```
+Then open `http://localhost:3000/`.
+
 ## Git workflow
 
 ```bash
